@@ -1,0 +1,238 @@
+0.1 What to expect from this course 3m 6s
+What is the intended purpose and potential advantage of learning object oriented design?
+
+Object oriented design is intended to help someone better understand the problems he/she seeks to solve, solve them more efficiently and effectively, as well as provide additional flexibility.
+
+0.2 Exploring object-oriented analysis, design, and development 1m 41s
+Why might it be advantageous to analyze and design before beginning programming?
+
+Analysis helps us better understand the problem we wish to solve. Design then helps us find the most effective way of solving it. 
+
+0.3 Reviewing software development methodologies 4m 8s
+What is the difference between a "waterfall" and an "agile" approach to development? What is an iteration and how do we to use them to build software?
+
+Waterfall is a linear approach to problem solving in which one problem is completed before moving onto the next. Agile is a continuous development process. An iteration is one of several incremental cycles consisting of analysis, design, and programming. 
+
+Section 1 - Core Concepts
+1.1 Why we use object-orientation 2m 42s
+What are the various types of programming languages and in which domain is each used?
+
+There is procedural like Cobol and Fortran for assembly on mainframes. Prolog is for logic programming ?in university courses?. Functional programming languages like Haskell is typically used in academia or certain specific applications. Object Oriented languages tend to dominate web applications, mobile apps, and desktop applications.
+
+1.2 What is an object? 5m 22s
+Describe in your own words the three properties of a computing object.
+
+Identity is the characteristic of an object that separates it from other objects, even if only arbitrarily. Attributes are the qualities that the object possesses. Behavior is the things that the object does.
+
+
+1.3 What is a class? 4m 43s
+Explain how classes are analogous to blueprints. Include the relationship between a class and an object. Can you think of how the analogy breaks down?
+
+A class is something we create before the object and is used to make the object. The blueprint defines the object to an extent and can be used to make many objects.
+
+1.4 What is abstraction? 2m 45s
+When a developer uses the term "abstraction" what are they describing?
+
+An abstraction is an idea or concept separate from any individual instance.
+
+1.5 What is encapsulation? 3m 45s
+What does encapsulation prevent? What does it enable?
+
+Encapsulation is control of access to an object. Encapsulation prevents access to an application outside of what is determined necessary. This reduces dependencies between different parts of an application. 
+
+1.6 What is inheritance? 3m 35s
+Describe the inheritance relationship between classes. When would this relationship be advantageous to establish?
+
+Inheritance is a way of reusing code by creating subclasses out of already existing classes. Changes to the parent class apply to the child class. This is advantageous if you want a child class to share attributes and behavior with its parent. Inheritance can help you save time in making new objects, as well as produce a cleaner, better organized program.
+
+1.7 What is polymorphism? 3m 22s
+What is the basic idea behind polymorphism? How can it make the classes we create more flexible?
+
+Polymorphism is many things at once. You can use the same method on different objects instantiated from different classes, and the behavior will be correct. 
+
+Section 2 - Object-Oriented Analysis and Design
+2.1 Understanding the object-oriented analysis and design processes 4m 13s
+What are the steps of analysis that come before writing code for an application? 
+Why do you think these steps make writing the code easier?
+
+
+Gather requirements, describe application, identify most important objects, describe interaction between objects, create class diagram. These steps enable you to better understand how to effectively attack the problem rather than blindly hacking through.
+
+
+2.2 Defining requirements 6m 9s
+What should you have after you've completed the first phase of defining your requirements?
+
+A class diagram that visually represents the classes in your application, the methods in those classes, and the interactions between objects.
+
+2.3 Introduction to the Unified Modeling Language (UML) 1m 54s
+What is UML? Why Is it useful to visualize your application before coding it?
+
+UML is a graphical notation for modeling an object oriented system. Visualizing your application will let you better understand how it would prospectively work before you begin the heavy lifting. Visualization is a generally great way of quickly understanding a lot of data.
+
+Section 3 - Utilizing Use Cases
+
+3.1 Understanding use cases 6m 11s
+Write a use case for creating an event on your phone's calendar.
+title: create calendar event on phone
+actor: me
+scenario/steps: 1. I select the date/time for the event 2. I choose an action 'add event' 3. I add in any needed details
+
+3.2 Identifying the actors 4m 16s
+Can you think of a use case for a mobile application in which the actor is not the user of the mobile device?
+
+An actor could be a remote server somewhere pushing information to the user, or another user interacting with the first user.
+
+3.3 Identifying the scenarios 5m 7s
+Write another use case for a mobile device user interacting with a calendar application. This time include a couple extensions when crafting your scenario.
+
+title: create calendar event on phone
+actor: me
+scenario/steps: 1. I select the date/time for the event 2. I choose an action 'add event' 3. I add in any needed details
+extension 1: connection interrupted while adding event. Process continues for user, data synced locally with warning that external calendars not updated yet. connection tested every minute until external calendars successfully updated. warning disappears.
+extension 2: other people needed for event. in details, user has option to invite other people to event by email. invite status of each other user displayed - invited, accepted, declined.
+
+3.4 Diagramming use cases 4m 18s
+Do a google image search for "use case diagram." Notice how many variations there are. What do they all generally have in common?
+
+Stick figures, ellipses, and lines connecting things.
+
+
+3.5 Employing user stories 3m 43s
+Write 5 user stories to describe a mobile user interacting with his or her maps application.
+
+A commuter wants to see how far his/her bus is from his/her destination because he/she is worried about being late.
+A bicyclist wants to find the most bike friendly route to the store because he/she doesn't want to ride near lots of cars or up hills.
+A newcomer to Chicago needs directions to his class because he lacks basic geographical awareness of the area.
+A city planner wants to better understand the layout of congestion areas in a city to work on alleviating the congestion.
+A homeowner wants to find the closest hardware store so he/she can quickly buy something for his/her project.
+
+
+
+Section 4 - Domain Modeling (Modeling the App) 4.1 Creating a conceptual model 1m 59s
+Just let it soak in. No questions here.
+
+4.2 Identifying the classes 2m 27s
+Identify the classes in the use case you constructed for a user interacting with his or her calendar application in chapter 3.
+
+Phone User
+Phone Calendar (local)
+Cloud Calendar (hub)
+other Users
+
+
+4.3 Identifying class relationships 2m 38s
+Identify the relationships among the classes you found above. Create a conceptual model where you diagram these relationships and then upload a picture of your model below.
+
+Phone User MODIFIES/ACCESSES Phone Calendar
+Phone User REQUESTS other Users
+other Users REQUEST Phone User
+Phone Calendar MODIFIES/SYNCs Cloud Calendar
+Cloud Calendar MODIFIES/SYNCs Phone Calendar
+other Users ACCEPT/DECLINE/IGNORE Phone User
+Phone User ACCEPT/DECLINE/IGNORES other Users
+
+4.4 Identifying class responsibilities 6m 43s
+Identify the responsibilities of the classes you found above. List them here.
+
+Not entirely clear on what we mean by 'responsibility'. I suppose that's where the appropriate method lives?
+
+Phone Calendar
+-modify
+-access
+-sync
+
+
+
+Cloud Calendar
+-sync
+-modify
+
+Phone User
+-accept
+-request
+
+
+other User
+-accept
+-request
+
+
+
+4.5 Using CRC cards 2m 49s
+If you'd like, try creating CRC cards for the model you made above. There's no need to respond here, just try it out and see if you like this form of organization.
+
+sounds good, physical cues feel natural
+
+Section 5 - Creating Classes
+5.1 Creating class diagrams 6m 11s
+Construct Class Diagrams for the classes you imagine exist in a twitter app, a maps app, a calendar app, or any other app you would like to make. Do you find that it is easier to come up with the attributes or with the behaviors? Why do you think that is?
+
+twitter app
+-----------
+Class
+Attributes
+Behaviors
+
+Class: Tweet
+Attributes: 
+textContent: String
+time: timestamp/date
+userId: integer
+tweetId: integer
+
+Behaviors:
+writeTextContent(): string
+reply(): struct [ userId integer, textContent string]
+retweet(): userId integer 
+favorite(): userId integer
+
+Class: User
+Attributes:
+userId: integer
+userName: string
+friends: struct [list of userIds]
+tweets: struct [list of tweetIds]
+
+Behaviors:
+writeTweet(): textContent string
+addFriend(): userId integer
+
+
+
+Attributes may be easier to think of than behaviors because they are more central to the identity of the object in that they require less thought about interactions with other objects.
+
+5.2 Converting class diagrams to code 4m 57s
+How might the separation of interface and implementation in Objective-C be an advantage when working with class diagrams?
+
+You can start making the attributes and behaviors you want and then worry about how your'e going to implement later.
+
+5.3 Exploring object lifetime 5m 55s
+Recall from Stage 1: What are the constructors and destructors in Objective-C? Why do we use them?
+
+init/alloc and dealloc are how we create and destroy objects. Constructors and Destructors tell the program with what values to instantiate a new object, and what outside connections to clean up when destroying that object. I'm not entirely sure how to define a destructor, but constructors can be defined with a method with the same name as the class.
+
+
+5.4 Using static or shared members 5m 22s
+Like the interest rate example in the video, give three additional examples of data that would be the same for all instances of a class.
+
+let's say our class is tweets. the 140 character limit is arbitrary but if we wanted it to be tweakable, we could make it adjustable on a class level. 
+
+or suppose we had wanted to implement adjustable gravity in a game. our object class could have a class level variable for weight/gravity.
+
+or suppose our program was for managing a business's inventory. We could have a class variable for each item class with a static price variable. ex: the new macbook pro 13" is a class, with each instance being each individual item, and the price on that model MBP is a class level variable.
+
+Section 6 - Inheritance and Composition
+6.1 Identifying inheritance situations 6m 49s
+Describe in your own words what inheritance is and how it is useful when constructing classes.
+
+Apparently, inheritance is the foundation of object oriented programming. All objects we create inherit from the object class. Inheritance mimics our  natural hierchys . Its a way of passing behaviors and attributes from superclass to subclass.
+
+
+6.2 Using inheritance 2m 43s
+Referring to the apps on your phone, come up with three examples where you believe methods are being inherited from superclasses and called by subclasses.
+
+tweets could potentially be implemented by having a content superclass
+with reply, retweet, and tweet subclasses. all 3 push something into your feed, but in slightly different ways, so the super method would be some kind of post method, with the differences manifesting on a subclass level.
+
+
+

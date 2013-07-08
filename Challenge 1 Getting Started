@@ -1,0 +1,15 @@
+1. Imagine asking a friend to meet you at a restaurant. What instructions would a
+computer program need that your friend would not in order to understand how to get
+there?
+2. What is the difference between source code and machine code? What does the CPU
+do? Where are instructions and data stored?
+3. What is an IDE and why is it useful?
+4. What kind of language is Objective-C? Why do you think we use it for making device
+specific applications? Why wouldn't we want to use an interpreted language for
+making iPhone and iPad apps?
+
+1. There are a number of low level computations that my human friend would likely be able to perform without explicit instruction, such as object recognition and spatial awareness
+2.  Source code is of a higher level and easier for people to interpret. Machine code is numerical operations that work on the smallest pieces of memory within a computer. The CPU reads and executes machine code. Instructions are stored in a file, and (?) data is stored in memory (?).
+3. IDE is an integrated development environment. They include a text editor, and a whole bunch of features for professional development. They are useful because they got what you need to develop.
+4. Objective-C is a compiled language. I assume a compiled language is good for iPhone and iPad apps because there is likely a lot of overlap between processors in these products, and also to optimize CPU performance in a resource-limited environment. There isn’t as much need for portability between CPUs and platforms because we’re trying to make native apps. Otherwise, I suppose we’d be using HTML5 or something.
+
