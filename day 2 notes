@@ -1,0 +1,4 @@
+char *S = "hello"
+
+char pointer POINTS TO an array
+
