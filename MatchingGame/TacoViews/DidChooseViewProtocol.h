@@ -17,10 +17,9 @@
 
 
 -(void)didChooseView:(MYView *) myView;
-///-(void)switchBoolean;
 
-///-(void)matchTag;
 -(void) resetGame;
+
 
 
 

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E3067" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Ktb-N7-MUh">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Zac-YT-0jV">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="Ktb-N7-MUh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="4kP-tj-kny">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="mUu-Ja-8QQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9iA-Hk-uN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-259" y="51"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fcI-U6-TVW">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="397-T7-eR3"/>
+                                    <outlet property="delegate" destination="2" id="xR7-xX-6jJ"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="fcI-U6-TVW" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="B1c-az-7U7"/>
+                            <constraint firstItem="fcI-U6-TVW" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="ElM-2N-jN8"/>
+                            <constraint firstItem="fcI-U6-TVW" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="Rn8-5h-whk"/>
+                            <constraint firstItem="fcI-U6-TVW" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="Txt-75-LsX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="b34-lu-8y2"/>
+                    <connections>
+                        <outlet property="tableView" destination="fcI-U6-TVW" id="eSH-Qt-0wU"/>
+                        <segue destination="DW9-nl-PX2" kind="push" identifier="toWordController" id="JCh-QX-72I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+        <!--Word View Controller-->
+        <scene sceneID="62x-F3-dsu">
+            <objects>
+                <viewController id="DW9-nl-PX2" customClass="WordViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YIe-p5-fMQ">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="word name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtK-Lh-IAL">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="271" id="a9t-5q-QtT"/>
+                                    <constraint firstAttribute="height" constant="63" id="ubc-No-TKZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="word definition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A9C-gj-cdn">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="Mkw-Ds-bQ0"/>
+                                    <constraint firstAttribute="height" constant="152" id="zle-Kq-gFh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="9gb-9N-adk">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="DW9-nl-PX2" id="eAI-hx-7un"/>
+                                    <outlet property="delegate" destination="DW9-nl-PX2" id="PVr-oc-e9l"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jtK-Lh-IAL" firstAttribute="top" secondItem="YIe-p5-fMQ" secondAttribute="top" type="default" id="4Mz-o0-LV4"/>
+                            <constraint firstItem="9gb-9N-adk" firstAttribute="leading" secondItem="YIe-p5-fMQ" secondAttribute="leading" type="default" id="9Bi-Jl-kIM"/>
+                            <constraint firstItem="A9C-gj-cdn" firstAttribute="top" secondItem="jtK-Lh-IAL" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9Ie-dD-qqs"/>
+                            <constraint firstItem="9gb-9N-adk" firstAttribute="bottom" secondItem="YIe-p5-fMQ" secondAttribute="bottom" type="default" id="FNe-Ly-NCH"/>
+                            <constraint firstItem="A9C-gj-cdn" firstAttribute="leading" secondItem="YIe-p5-fMQ" secondAttribute="leading" type="default" id="Fkh-3O-GgG"/>
+                            <constraint firstItem="9gb-9N-adk" firstAttribute="trailing" secondItem="YIe-p5-fMQ" secondAttribute="trailing" type="default" id="KJJ-4A-tpd"/>
+                            <constraint firstItem="9gb-9N-adk" firstAttribute="top" secondItem="A9C-gj-cdn" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="KiS-Ue-12Y"/>
+                            <constraint firstItem="jtK-Lh-IAL" firstAttribute="leading" secondItem="YIe-p5-fMQ" secondAttribute="leading" type="default" id="iEM-dm-NaT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="lIo-Wd-cZr"/>
+                    <connections>
+                        <outlet property="tableView" destination="9gb-9N-adk" id="Tr9-yN-K00"/>
+                        <outlet property="wordDefinitionLabel" destination="A9C-gj-cdn" id="ccg-vJ-VNR"/>
+                        <outlet property="wordNameLabel" destination="jtK-Lh-IAL" id="Fa5-ko-NCh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a64-A0-fRh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="177" y="719"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="WordViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WordViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="wordDefinitionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="wordNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

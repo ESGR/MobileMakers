@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "WinView.h"
+#import "PauseView.h"
 
 
 @interface ViewController ()
@@ -23,6 +24,7 @@
     int totalScore;
     
     WinView * winView;
+    PauseView * pauseView;
     
     UILabel * totalScoreLabel;
     UILabel * roundScoreLabel;
@@ -32,8 +34,12 @@
     NSTimer * gameTimer;
     int time;
     int totalTime;
-     UIButton * resetButton;
-  
+    UIButton * resetButton;
+    UIButton * pauseResumeButton;
+    
+    BOOL paused;
+    
+    
     
 }
 
@@ -48,13 +54,18 @@
 {
     [super viewDidLoad];
     storeNotMatch = YES;
- 
+    paused = NO;
+    
     
     successfulMatchCount = 0;
     totalScore = 0;
     
     ///win screen
-    winView =  [[WinView alloc] initWithFrame:CGRectMake(0, 0, 320, 321)];
+    winView =  [[WinView alloc] initWithFrame:CGRectMake(0, 0, 320, 600)];
+    winView.delegate = self;
+    
+    ///pause screen
+    pauseView =  [[PauseView alloc] initWithFrame:CGRectMake(0, 0, 320, 321)];
     winView.delegate = self;
     
     roundScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 321, 150, 30)];
@@ -77,15 +88,23 @@
     
     resetButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     resetButton.frame = CGRectMake(0, 401, 150, 30);
-   
+    
     [resetButton setTitle:@"Reset" forState:UIControlStateNormal];
-    [resetButton addTarget:self action:@selector(resetGame) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    
-    
+    [resetButton addTarget:self action:@selector(resetButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:resetButton];
+    
+    pauseResumeButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    pauseResumeButton.frame = CGRectMake(161, 401, 150, 30);
+    
+    [pauseResumeButton setTitle:@"Pause" forState:UIControlStateNormal];
+    [pauseResumeButton addTarget:self action:@selector(pauseResumeGame) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:pauseResumeButton];
+    
+    
+    
+    
     
     ///sets all the subviews as having delegate root maincontroller
     for (UIView * subview in self.view.subviews)
@@ -132,15 +151,15 @@
 {
     if (!first.isWon && !second.isWon)
     {
-    first.backgroundColor = [UIColor redColor];
-    second.backgroundColor = [UIColor redColor];
-    
-    missedScore  ++;
-    
-    missedScoreLabel.text = [NSString stringWithFormat:@" Misses: %i    ",missedScore];
-    
-    NSArray * views = @[first, second];
-    NSTimer * failTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector (resetLastTwoPicks:) userInfo:views repeats:NO];
+        first.backgroundColor = [UIColor redColor];
+        second.backgroundColor = [UIColor redColor];
+        
+        missedScore  ++;
+        
+        missedScoreLabel.text = [NSString stringWithFormat:@" Misses: %i    ",missedScore];
+        
+        NSArray * views = @[first, second];
+        NSTimer * failTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector (resetLastTwoPicks:) userInfo:views repeats:NO];
     }
     
 }
@@ -164,60 +183,18 @@
     if (successfulMatchCount > 7)
     {
         [gameTimer invalidate];
-        ///goes to win screen
-        
+               
         score = (successfulMatchCount - missedScore)/(time/60+1);
         totalScore = totalScore + score;
-        
-        winView.matches = successfulMatchCount;
-        winView.misses = missedScore;
-        winView.time = time;
-        winView.totalTime = totalTime;
-        winView.score = score;
-        winView.totalScore = totalScore;
-        
-     
-        
-        
-        
-        [self updateScores];
-        [winView updateLabels];
+              
+        [self refreshDisplayedNumbers];
+       ///goes to win screen
         [self.view addSubview:winView];
+       
     }
 }
 
 
-
--(void) resetGame
-{
-    successfulMatchCount = 0;
-    missedScore = 0;
-    time = 0;
-    score = 0;
-    
-    if (gameTimer)
-    {
-        [gameTimer invalidate];
-    }
-    
-    [self updateScores];
-    
-    
-    gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
-    
-    for (UIView * subview in self.view.subviews)
-    {
-        if ([subview isKindOfClass:[MYView class]])
-            
-        {
-            MYView * myView = (MYView *)subview;
-            myView.backgroundColor = [UIColor whiteColor];
-            [myView decreaseAlpha];
-            myView.isWon = NO;
-        }
-    }
-    
-}
 
 
 
@@ -281,12 +258,65 @@
 }
 
 
--(void) updateScores
+
+
+-(void) pauseResumeGame
 {
+    if (paused)
+    {
+        gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+        [pauseResumeButton setTitle:@"Pause" forState:UIControlStateNormal];
+        [pauseView removeFromSuperview];
+        paused = NO;
+        
+        
+    }
+    else
+    {
+        [gameTimer invalidate];
+        
+        
+     
+        [self refreshDisplayedNumbers];
+        
+        [self.view addSubview:pauseView];
+        
+        [pauseResumeButton setTitle:@"Resume" forState:UIControlStateNormal];
+        paused = YES;
+        
+        
+    }
+}
+
+-(void) resetButtonAction
+{
+    totalTime = totalTime - time;
+  
+
+    [self resetGame];
+      [self refreshDisplayedNumbers];
+}
+
+-(void) refreshDisplayedNumbers
+{
+    
+    winView.matches = successfulMatchCount;
+    winView.misses = missedScore;
+    winView.time = time;
+    winView.totalTime = totalTime;
+    winView.score = score;
+    winView.totalScore = totalScore;
+    pauseView.matches = successfulMatchCount;
+    pauseView.misses = missedScore;
+    pauseView.time = time;
+    pauseView.totalTime = totalTime;
+    pauseView.totalScore = totalScore;
     roundScoreLabel.text = [NSString stringWithFormat:@" Matches: %i    ",successfulMatchCount];
     totalScoreLabel.text = [NSString stringWithFormat:@" Score: %i    ",totalScore];
     missedScoreLabel.text = [NSString stringWithFormat:@" Misses: %i    ",missedScore];
     elapsedTimeLabel.text = [NSString stringWithFormat:@" Time: %i   ",time];
+    [pauseView updateLabels];
+    [winView updateLabels];
 }
 
 #pragma mark DidChooseViewProtocol
@@ -312,5 +342,41 @@
     
     
 }
+
+
+-(void) resetGame
+{
+    successfulMatchCount = 0;
+    missedScore = 0;
+    time = 0;
+    score = 0;
+    
+    
+    if (gameTimer)
+    {
+        [gameTimer invalidate];
+    }
+    
+    [self refreshDisplayedNumbers];
+    
+    if (!paused)
+    {
+    gameTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(incrementTime) userInfo:nil repeats:YES];
+    }
+    
+    for (UIView * subview in self.view.subviews)
+    {
+        if ([subview isKindOfClass:[MYView class]])
+            
+        {
+            MYView * myView = (MYView *)subview;
+            myView.backgroundColor = [UIColor whiteColor];
+            [myView decreaseAlpha];
+            myView.isWon = NO;
+        }
+    }
+    
+}
+
 
 @end

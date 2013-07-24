@@ -20,6 +20,7 @@
 		0C0FAA621798543F00D1029F /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C0FAA601798543F00D1029F /* ViewController.xib */; };
 		0C0FAA6A179857C500D1029F /* MYView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FAA69179857C500D1029F /* MYView.m */; };
 		0C0FAA731798A9E300D1029F /* mudkipSmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0FAA721798A9E300D1029F /* mudkipSmall.png */; };
+		0C27FA41179B829F0085F765 /* PauseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C27FA40179B829F0085F765 /* PauseView.m */; };
 		0CBCC4DE179B2A1500A43CAF /* mudkip8080.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CBCC4DD179B2A1500A43CAF /* mudkip8080.png */; };
 		0CBCC4E0179B2B7300A43CAF /* mudkip7070.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CBCC4DF179B2B7300A43CAF /* mudkip7070.png */; };
 		0CBCC4E2179B30D000A43CAF /* hugeMudkip.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CBCC4E1179B30D000A43CAF /* hugeMudkip.png */; };
@@ -49,6 +50,8 @@
 		0C0FAA69179857C500D1029F /* MYView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYView.m; sourceTree = "<group>"; };
 		0C0FAA6B179861DE00D1029F /* DidChooseViewProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DidChooseViewProtocol.h; sourceTree = "<group>"; };
 		0C0FAA721798A9E300D1029F /* mudkipSmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mudkipSmall.png; sourceTree = "<group>"; };
+		0C27FA3F179B829F0085F765 /* PauseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PauseView.h; sourceTree = "<group>"; };
+		0C27FA40179B829F0085F765 /* PauseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PauseView.m; sourceTree = "<group>"; };
 		0CBCC4DD179B2A1500A43CAF /* mudkip8080.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mudkip8080.png; sourceTree = "<group>"; };
 		0CBCC4DF179B2B7300A43CAF /* mudkip7070.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mudkip7070.png; sourceTree = "<group>"; };
 		0CBCC4E1179B30D000A43CAF /* hugeMudkip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hugeMudkip.png; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 				0C0FAA69179857C500D1029F /* MYView.m */,
 				0CBCC4E6179B31B000A43CAF /* WinView.h */,
 				0CBCC4E7179B31B000A43CAF /* WinView.m */,
+				0C27FA3F179B829F0085F765 /* PauseView.h */,
+				0C27FA40179B829F0085F765 /* PauseView.m */,
 				0C0FAA6B179861DE00D1029F /* DidChooseViewProtocol.h */,
 				0C0FAA4C1798543F00D1029F /* Supporting Files */,
 			);
@@ -214,6 +219,7 @@
 				0C0FAA5F1798543F00D1029F /* ViewController.m in Sources */,
 				0C0FAA6A179857C500D1029F /* MYView.m in Sources */,
 				0CBCC4E8179B31B000A43CAF /* WinView.m in Sources */,
+				0C27FA41179B829F0085F765 /* PauseView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
