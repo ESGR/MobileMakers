@@ -133,9 +133,9 @@
     return [[dictionary allKeys] count];
 }
 
--(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *) tableView:(UITableView *)tableViewv cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"id1"];
+    UITableViewCell * cell = [tableViewv dequeueReusableCellWithIdentifier:@"id1"];
     if (cell == nil)
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"id1"];
@@ -163,9 +163,7 @@
     
     
     
-    ///showViewController.person = [peopleArray objectAtIndex:indexPath.row];
-    /// [self.navigationController pushViewController:showViewController animated:YES];
-    
+
     [self performSegueWithIdentifier:@"toWordController" sender:self];
     
 }
