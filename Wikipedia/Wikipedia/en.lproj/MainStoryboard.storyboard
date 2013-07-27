@@ -87,24 +87,21 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0l-18-BWu">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zjN-jL-6I9">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="p0l-18-BWu" firstAttribute="bottom" secondItem="RqU-uD-fBe" secondAttribute="bottom" type="default" id="7iA-yF-Qs0"/>
-                            <constraint firstItem="p0l-18-BWu" firstAttribute="leading" secondItem="RqU-uD-fBe" secondAttribute="leading" type="default" id="dL7-Xc-495"/>
-                            <constraint firstItem="p0l-18-BWu" firstAttribute="top" secondItem="RqU-uD-fBe" secondAttribute="top" type="default" id="mz0-sY-5OY"/>
-                            <constraint firstItem="p0l-18-BWu" firstAttribute="trailing" secondItem="RqU-uD-fBe" secondAttribute="trailing" type="default" id="xbP-bZ-BYm"/>
+                            <constraint firstItem="zjN-jL-6I9" firstAttribute="bottom" secondItem="RqU-uD-fBe" secondAttribute="bottom" type="default" id="2s4-R2-z43"/>
+                            <constraint firstItem="zjN-jL-6I9" firstAttribute="top" secondItem="RqU-uD-fBe" secondAttribute="top" type="default" id="I88-Sh-Ag4"/>
+                            <constraint firstItem="zjN-jL-6I9" firstAttribute="trailing" secondItem="RqU-uD-fBe" secondAttribute="trailing" type="default" id="UIH-7i-8sZ"/>
+                            <constraint firstItem="zjN-jL-6I9" firstAttribute="leading" secondItem="RqU-uD-fBe" secondAttribute="leading" type="default" id="VN1-TL-cAs"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ebc-ga-BRQ"/>
                     <connections>
-                        <outlet property="textView" destination="p0l-18-BWu" id="D1F-g0-EkC"/>
+                        <outlet property="webView" destination="zjN-jL-6I9" id="wxy-NQ-ZDP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bji-Ho-XPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -119,7 +116,7 @@
         <class className="SnippetsViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/SnippetsViewController.h"/>
             <relationships>
-                <relationship kind="outlet" name="textView" candidateClass="UITextView"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
             </relationships>
         </class>
         <class className="ViewController" superclassName="UIViewController">

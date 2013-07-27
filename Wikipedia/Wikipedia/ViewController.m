@@ -18,10 +18,6 @@
     NSMutableDictionary * resultsDictionary;
     NSMutableDictionary * queryDictionary;
     NSMutableArray * searchArray; //searchArray is an array of dictionaries. each dictionary has a key for the title snippet and ns
-    
-    NSMutableArray * titles;
-    NSMutableArray *snippets;
-    
 }
 
 -(IBAction)searchWiki:(id)sender;
@@ -52,25 +48,12 @@
     NSURL * url = [NSURL URLWithString:stringForURL];
     NSURLRequest * request = [NSURLRequest requestWithURL:url];
     
-    titles = [NSMutableArray arrayWithCapacity:10];
-    snippets = [NSMutableArray arrayWithCapacity:10];
-    
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * response, NSData * data, NSError * error)
      {
          resultsDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
          queryDictionary =  [resultsDictionary objectForKey:@"query"];
          searchArray =  [queryDictionary objectForKey:@"search"];
-         
-         [searchArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop)
-          {
-              NSDictionary * searchDict = (NSDictionary *)obj;
-              NSString * articleTitle = [searchDict objectForKey:@"title"];
-              NSString * snippet = [searchDict objectForKey:@"snippet"];
-              
-              [titles insertObject:articleTitle atIndex:idx];
-              [snippets insertObject:snippet  atIndex:idx];
-          }
-          ];
+  
          [tableView reloadData];
      }];
     [textField resignFirstResponder];
@@ -81,10 +64,12 @@
     SnippetsViewController * snippetsViewController = segue.destinationViewController;
     
     NSIndexPath * indexPath =    [tableView indexPathForSelectedRow];
-        
-    snippetsViewController.textValue = [snippets objectAtIndex:indexPath.row] ;
     
+    NSDictionary * article = [searchArray objectAtIndex:indexPath.row];
     
+    NSString *    snippetText = [article objectForKey:@"snippet"];
+    
+    snippetsViewController.textValue = snippetText;
 }
 
 
@@ -97,7 +82,7 @@
 
 -(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return titles.count;
+    return searchArray.count;
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,7 +92,11 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"wikiTitles"];
     }
-    cell.textLabel.text = [titles objectAtIndex:indexPath.row];
+    
+    NSDictionary * article = [searchArray objectAtIndex:indexPath.row];
+    NSString * title = [article objectForKey:@"title"];
+    
+    cell.textLabel.text = title;
     
     return cell;
 }

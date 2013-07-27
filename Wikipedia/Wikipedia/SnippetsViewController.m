@@ -10,7 +10,7 @@
 
 @interface SnippetsViewController ()
 {
-    IBOutlet UITextView * textView;
+    IBOutlet UIWebView * webView;
 }
 
 @end
@@ -31,7 +31,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    textView.text = textValue;
+    [webView loadHTMLString:textValue baseURL:nil];
 }
 
 - (void)didReceiveMemoryWarning

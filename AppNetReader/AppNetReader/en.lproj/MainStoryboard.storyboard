@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E3067" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dDp-ej-YV6">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="ts5-4h-nyr">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="dDp-ej-YV6" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="TOd-zP-pk0">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="jad-YO-AyV"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Wq-p7-6jW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-178" y="123"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="w1P-bu-V78">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" id="DIk-gg-UuX">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                </activityIndicatorView>
+                                <connections>
+                                    <outlet property="dataSource" destination="2" id="6R6-Uw-WoT"/>
+                                    <outlet property="delegate" destination="2" id="W9h-hO-9py"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w1P-bu-V78" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="0za-0F-Ywr"/>
+                            <constraint firstItem="w1P-bu-V78" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="4DH-eT-db9"/>
+                            <constraint firstItem="w1P-bu-V78" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="mSc-kj-8XK"/>
+                            <constraint firstItem="w1P-bu-V78" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="pF2-0l-eft"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="f72-PK-iGx"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="DIk-gg-UuX" id="pcT-2O-mx9"/>
+                        <outlet property="tableView" destination="w1P-bu-V78" id="9r8-Ol-0GG"/>
+                        <segue destination="Bvj-ip-NA0" kind="push" identifier="toUserView" id="guq-i9-cxp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="183" y="123"/>
+        </scene>
+        <!--User View Controller-->
+        <scene sceneID="Dsf-uf-ysz">
+            <objects>
+                <viewController id="Bvj-ip-NA0" customClass="UserViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Js-nn-GEc">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="h0N-Rb-qvv">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Bvj-ip-NA0" id="Al8-ud-Txg"/>
+                                    <outlet property="delegate" destination="Bvj-ip-NA0" id="XqN-8P-3jF"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="h0N-Rb-qvv" firstAttribute="top" secondItem="2Js-nn-GEc" secondAttribute="top" type="default" id="ANP-yT-k7K"/>
+                            <constraint firstItem="h0N-Rb-qvv" firstAttribute="leading" secondItem="2Js-nn-GEc" secondAttribute="leading" type="default" id="Ncq-hb-ozd"/>
+                            <constraint firstItem="h0N-Rb-qvv" firstAttribute="bottom" secondItem="2Js-nn-GEc" secondAttribute="bottom" type="default" id="SYo-Jb-tBY"/>
+                            <constraint firstItem="h0N-Rb-qvv" firstAttribute="trailing" secondItem="2Js-nn-GEc" secondAttribute="trailing" type="default" id="gK8-Dy-Czp"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hsY-vn-oTG"/>
+                    <connections>
+                        <outlet property="tableView" destination="h0N-Rb-qvv" id="AZ0-Ct-lhh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Trz-7T-Qjt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="620" y="117"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="UserViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UserViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
