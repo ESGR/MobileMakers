@@ -85,6 +85,8 @@
     return searchArray.count;
 }
 
+
+
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"wikiTitles"];
@@ -102,12 +104,17 @@
 }
 
 
+
+
 #pragma mark UITableViewDelegate
 /// for passing cell contents to new viewcontroller on touching/selecting cell
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self performSegueWithIdentifier:@"toSnippetView" sender:self];
 }
+
+
+
 
 
 @end

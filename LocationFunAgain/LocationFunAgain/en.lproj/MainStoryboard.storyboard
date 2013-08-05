@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E3067" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Tt1-dl-8fL">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="QTl-mf-qVQ">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="Tt1-dl-8fL" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YzT-91-awi">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="9WE-Wl-Ucn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5bm-eP-ysg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-383" y="73"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Kbd-qJ-oRg">
+                                <connections>
+                                    <outlet property="delegate" destination="2" id="Srh-T8-4HI"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Kbd-qJ-oRg" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="60Y-uU-y0q"/>
+                            <constraint firstItem="Kbd-qJ-oRg" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="8uk-FA-jah"/>
+                            <constraint firstItem="Kbd-qJ-oRg" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="FZc-M8-SK8"/>
+                            <constraint firstItem="Kbd-qJ-oRg" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="dWO-m3-WXO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="UFS-KZ-w75"/>
+                    <connections>
+                        <outlet property="mapView" destination="Kbd-qJ-oRg" id="3pF-bC-Jh8"/>
+                        <segue destination="b2a-Nr-mDl" kind="push" identifier="toStopInfo" id="eUV-Y9-VEf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="17" y="61"/>
+        </scene>
+        <!--Stop Info View Controller-->
+        <scene sceneID="tWq-Jw-Sjg">
+            <objects>
+                <viewController id="b2a-Nr-mDl" customClass="StopInfoViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QLS-uw-onM">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7S-hN-6iA">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="292" id="oHa-3b-wCq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Direction" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49e-jB-Ojk">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="37N-5y-6uC"/>
+                                    <constraint firstAttribute="width" constant="300" id="fA6-xg-zf9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Routes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rxr-Hk-Afh">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Dv3-U3-QjR"/>
+                                    <constraint firstAttribute="width" constant="300" id="uju-Js-sJZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Intermodals" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nyp-NF-5K8">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="TRI-sQ-BhD"/>
+                                    <constraint firstAttribute="width" constant="300" id="Z8k-1i-oQO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Nyp-NF-5K8" firstAttribute="top" secondItem="rxr-Hk-Afh" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="5dO-76-0Aq"/>
+                            <constraint firstItem="rxr-Hk-Afh" firstAttribute="top" secondItem="QLS-uw-onM" secondAttribute="top" constant="104" id="Bqc-SO-lRj"/>
+                            <constraint firstItem="Nyp-NF-5K8" firstAttribute="centerX" secondItem="QLS-uw-onM" secondAttribute="centerX" type="default" id="VRB-rI-i9k"/>
+                            <constraint firstItem="rxr-Hk-Afh" firstAttribute="leading" secondItem="QLS-uw-onM" secondAttribute="leading" constant="11" id="Wph-GR-jKO"/>
+                            <constraint firstItem="rxr-Hk-Afh" firstAttribute="centerX" secondItem="x7S-hN-6iA" secondAttribute="centerX" type="default" id="Zfv-Nw-XMv"/>
+                            <constraint firstItem="49e-jB-Ojk" firstAttribute="top" secondItem="QLS-uw-onM" secondAttribute="top" constant="65" id="co1-1J-UWA"/>
+                            <constraint firstItem="49e-jB-Ojk" firstAttribute="leading" secondItem="x7S-hN-6iA" secondAttribute="leading" type="default" id="k27-Wm-maf"/>
+                            <constraint firstItem="x7S-hN-6iA" firstAttribute="top" secondItem="QLS-uw-onM" secondAttribute="top" constant="31" id="koP-DD-dtV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="piq-QJ-OjJ"/>
+                    <connections>
+                        <outlet property="directionLabel" destination="49e-jB-Ojk" id="t4G-a5-CLu"/>
+                        <outlet property="intermodalsLabel" destination="Nyp-NF-5K8" id="tLQ-8A-cdb"/>
+                        <outlet property="routesLabel" destination="rxr-Hk-Afh" id="rCp-Pq-XZd"/>
+                        <outlet property="stopNameLabel" destination="x7S-hN-6iA" id="b8P-DU-GaO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rri-GC-YoQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="398" y="61"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="StopInfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StopInfoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="directionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="intermodalsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="routesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="stopNameLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="changeImage:"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
