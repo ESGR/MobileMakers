@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "addPersonProtocol.h"
-@interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, addPersonProtocol>
+@interface ViewController : UIViewController <UITableViewDataSource,UITableViewDelegate, addPersonProtocol, UISearchBarDelegate, UISearchDisplayDelegate>
 
 @end

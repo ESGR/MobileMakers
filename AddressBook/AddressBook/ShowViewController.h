@@ -10,5 +10,6 @@
 #import "Person.h"
 @interface ShowViewController : UIViewController <UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) Person * person;
+-(void) refresh;
 
 @end

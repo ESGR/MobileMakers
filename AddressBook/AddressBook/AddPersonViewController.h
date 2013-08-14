@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 # import "addPersonProtocol.h"
 #import "Person.h"
+#import "Address.h"
 
 @interface AddPersonViewController : UIViewController
 @property (strong, nonatomic) id <addPersonProtocol> delegate;

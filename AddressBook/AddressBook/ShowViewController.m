@@ -11,15 +11,10 @@
 
 @interface ShowViewController ()
 {
- 
-    
-    NSMutableArray * detailsArray;
-    
     IBOutlet UITableView * detailsTable;
-    
-   /// BOOL editing;
+    NSMutableDictionary *personDictionary;
+    NSMutableArray * orderArray;
 }
-
 
 
 @end
@@ -44,68 +39,78 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStyleDone target:self action:@selector(navEdit)];
     
-  
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"All Contacts" style:UIBarButtonItemStyleBordered target:self action:@selector(backToList)];
+    
+    
     int i = 0;
     
     
-    detailsArray = [NSMutableArray arrayWithCapacity:0];
+    NSMutableSet * addresses = [person mutableSetValueForKey:@"addresses"];
+    NSPredicate *homeAddressPredicate = [NSPredicate predicateWithFormat:@"addressType = 'homeAddress'"];
+    NSPredicate *workAddressPredicate = [NSPredicate predicateWithFormat:@"addressType = 'workAddress'"];
     
-    if (person.firstName)
+    Address * homeAddress = [[addresses filteredSetUsingPredicate:homeAddressPredicate] anyObject];
+    Address * workAddress = [[addresses filteredSetUsingPredicate:workAddressPredicate] anyObject];
+    
+    personDictionary = [NSMutableDictionary dictionaryWithCapacity:6];
+    orderArray = [NSMutableArray arrayWithCapacity:6];
+    
+    if (!person.firstName.length == 0)
     {
-    [detailsArray insertObject:person.firstName atIndex:i];
+        [personDictionary setObject: person.firstName forKey:@"First Name"];
+        [orderArray addObject:@"First Name"];
         i++;
     }
     
-    if (person.lastName)
+    if (!person.lastName.length == 0)
     {
-    [detailsArray insertObject:person.lastName atIndex:i];
+        [personDictionary setObject: person.lastName forKey:@"Last Name"];
+        [orderArray addObject: @"Last Name"];
         i++;
     }
-    if (person.emailAddress)
+    if (!person.emailAddress.length == 0)
     {
-        [detailsArray insertObject:person.emailAddress atIndex:i];
+        [personDictionary setObject: person.emailAddress  forKey:@"Email Address"];
+        [orderArray addObject:@"Email Address"];
         i++;
-
     }
-    if (person.phoneNumber)
+    if (!person.phoneNumber.length == 0)
     {
-        [detailsArray insertObject:person.phoneNumber atIndex:i];
+        [personDictionary setObject: person.phoneNumber  forKey:@"Phone Number"];
+        [orderArray addObject:@"Phone Number"];
         i++;
-
     }
-        /*
-    firstName.text = person.firstName;
-    lastName.text = person.lastName;
-    emailAddress.text = person.emailAddress;
-    phoneNumber.text = person.phoneNumber;
-     */
-    
-    
-    
+    if (!homeAddress.streetAddress.length == 0)
+    {
+        [personDictionary setObject: homeAddress.streetAddress  forKey:@"Home Address"];
+        [orderArray addObject:@"Home Address"];
+        i++;
     }
+    if (!workAddress.streetAddress.length == 0)
+    {
+        [personDictionary setObject: workAddress.streetAddress  forKey:@"Work Address"];
+        [orderArray addObject:@"Work Address"];
+        i++;
+    }
+}
 
-
+-(void) refresh
+{
+    [detailsTable reloadData];
+}
 
 -(void) navEdit
 {
-           
-            
-        [self performSegueWithIdentifier:@"toEditPerson" sender:self];
-   
+    [self performSegueWithIdentifier:@"ShowToEdit" sender:self];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqual:@"toEditPerson" ])
-    
+    if ([segue.identifier isEqual:@"ShowToEdit" ])
+        
     {
         AddPersonViewController * destination = segue.destinationViewController;
-        destination.person    = person;
-///NEED TO ASSIGN VC AS DELEGATE TO ADDPERSONVC FOR EDIT
-        NSLog(@"person%@",person);
-        NSLog(@"destinationperson%@",destination.person);
-        
-        
+        destination.person = person;
     }
 }
 
@@ -113,6 +118,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) backToList
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 #pragma mark UITableViewDataSource
@@ -124,7 +134,7 @@
 
 -(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [detailsArray count];
+    return [orderArray count];
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -132,35 +142,17 @@
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"id1"];
     if (cell == nil)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"id1"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"id1"];
     }
     
-    NSString * detail = [detailsArray objectAtIndex:indexPath.row];
-    cell.textLabel.text = detail;
-    
+    NSString * key = [orderArray objectAtIndex:indexPath.row];
+    cell.detailTextLabel.text  = [personDictionary objectForKey:key];
+    cell.textLabel.text = key;
     
     return cell;
     
 }
 
 
-#pragma mark UITableViewDelegate
-
-/*
-/// for passing cell contents to new viewcontroller on touching/selecting cell
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    showViewController = [[ShowViewController alloc] init];
-    ///pass person at cell to instance variable which will then be passed to showViewController with prepareForSegue
-    
-    personSending = [peopleArray objectAtIndex:indexPath.row];
-    
-    ///showViewController.person = [peopleArray objectAtIndex:indexPath.row];
-    /// [self.navigationController pushViewController:showViewController animated:YES];
-    
-    [self performSegueWithIdentifier:@"toShowViewController" sender:self];
-    
-}
-*/
 
 @end

@@ -10,17 +10,19 @@
 #import "Person.h"
 #import "ShowViewController.h"
 #import "AddPersonViewController.h"
+#import "AppDelegate.h"
+#import "AddressBookSingleton.h"
 
 @interface ViewController ()
 {
-    NSMutableArray * peopleArray;
     ShowViewController * showViewController;
     AddPersonViewController * addPersonViewController;
-    Person * personSending;
-    UIBarButtonItem *rightButton;
-    BOOL editing;
     
-    IBOutlet UITableView * tableView;
+    __weak IBOutlet UISearchBar *oSearchBar;
+    IBOutlet UITableView * oTableView;
+
+    NSMutableArray * coreDataPeopleArray;
+    NSMutableArray * filteredPeopleArray;
 }
 
 @end
@@ -30,42 +32,11 @@
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    if (self) {
+    if (self)
+    {
         NSLog(@"initwithcoder");
-        peopleArray = [[NSMutableArray alloc] initWithCapacity:10];
-        
-        Person * alice = [[Person alloc] init];
-        Person * bob = [[Person alloc] init];
-        Person * chelsea = [[Person alloc] init];
-        Person * delilah = [[Person alloc] init];
-        Person * eliot = [[Person alloc] init];
-        
-        alice.firstName = @"Alice";
-        bob.firstName = @"Bob";
-        chelsea.firstName = @"Chelsea";
-        delilah.firstName = @"Delilah";
-        eliot.firstName = @"Eliot";
-        
-        alice.emailAddress = @"Alice@gmail.com";
-        bob.emailAddress = @"Bob@gmail.com";
-        chelsea.emailAddress = @"Chelsea@gmail.com";
-        delilah.emailAddress = @"Delilah@gmail.com";
-        eliot.emailAddress = @"Eliot@gmail.com";
-        
-        
-        
-        
-        
-        [peopleArray insertObject:alice atIndex:0];
-        [peopleArray insertObject:bob atIndex:1];
-        [peopleArray insertObject:chelsea atIndex:2];
-        [peopleArray insertObject:delilah atIndex:3];
-        [peopleArray insertObject:eliot atIndex:4];
-        
+        NSLog(@"vc%@",self);
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"+" style:UIBarButtonItemStyleDone target:self action:@selector(toAddPersonView)];
-   
-        
-        
     }
     return self;
 }
@@ -73,7 +44,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view, typically from a nib.
+    coreDataPeopleArray = [[NSMutableArray alloc] initWithCapacity:50];
+    filteredPeopleArray = [[NSMutableArray alloc] initWithCapacity:50];
+    [self fetchFromCoreData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,41 +59,51 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqual:@"toShowViewController" ])
+    if ([segue.identifier isEqual:@"ListToShow" ])
     {
-    ///grabs person from instance variable to be passed to showViewController
-    ShowViewController * destination = segue.destinationViewController;
-    destination.person =personSending;
+        ShowViewController * destination = segue.destinationViewController;
+        destination.person = [coreDataPeopleArray objectAtIndex:oTableView.indexPathForSelectedRow.row];
     }
-    else if ([segue.identifier isEqual:@"toAddPerson" ])
+    else if ([segue.identifier isEqual:@"ListToEdit" ])
     {
+        ///"edit" here is to create a person. we are "editing" a blank person
         AddPersonViewController * destination = segue.destinationViewController;
         destination.delegate    = self;
         destination.person = [self makePerson];
-
-
+        
     }
 }
 
 -(void) toAddPersonView
 {
- 
-   /// addPersonViewController = [[AddPersonViewController alloc] init];
-    
-    [self performSegueWithIdentifier:@"toAddPerson" sender:self];
-    
-    }
+    [self performSegueWithIdentifier:@"ListToEdit" sender:self];
+}
 
 
 -(Person *) makePerson
 {
-    Person * person = [[Person alloc] init];
-    [peopleArray addObject:person];
-    [tableView reloadData];
+    Person * person = [[AddressBookSingleton sharedInstance] newObjectForEntityForName:@"Person"];
+    [person addAddressesObject:[self makeAddressofType:@"homeAddress"]];
+    [person addAddressesObject:[self makeAddressofType:@"workAddress"]];
+    [coreDataPeopleArray addObject:person];
+    
     return person;
 }
 
+-(Address *) makeAddressofType: (NSString *) type
+{
+    Address * address = [[AddressBookSingleton sharedInstance] newObjectForEntityForName:@"Address"];
+    address.addressType = type;
+    address.streetAddress = @"";
+    
+    return address;
+}
 
+-(void) fetchFromCoreData
+{
+    NSArray *   fetchedArray =  [[AddressBookSingleton sharedInstance] fetchFromCoreData];
+    coreDataPeopleArray =  [NSMutableArray arrayWithArray:fetchedArray];
+}
 
 #pragma mark UITableViewDataSource
 
@@ -129,7 +114,12 @@
 
 -(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [peopleArray count];
+  
+    if (tableView == self.searchDisplayController.searchResultsTableView) {
+        return [filteredPeopleArray count];
+    } else {
+        return [coreDataPeopleArray count];
+    }
 }
 
 -(UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -139,12 +129,21 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"id1"];
     }
+
+    Person * person;
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+       person = [filteredPeopleArray objectAtIndex:indexPath.row];
+    }
+    else
+    {
+       person = [coreDataPeopleArray objectAtIndex:indexPath.row];
+    }
     
-    Person * person = [peopleArray objectAtIndex:indexPath.row];
     cell.textLabel.text = person.firstName;
-    
-    
+     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
     return cell;
+
     
 }
 
@@ -155,37 +154,49 @@
 /// for passing cell contents to new viewcontroller on touching/selecting cell
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   /// showViewController = [[ShowViewController alloc] init];
-    ///pass person at cell to instance variable which will then be passed to showViewController with prepareForSegue
-    
-    personSending = [peopleArray objectAtIndex:indexPath.row];
-    
-    ///showViewController.person = [peopleArray objectAtIndex:indexPath.row];
-    /// [self.navigationController pushViewController:showViewController animated:YES];
-    
-    [self performSegueWithIdentifier:@"toShowViewController" sender:self];
-    
+    [self performSegueWithIdentifier:@"ListToShow" sender:self];
 }
 
 #pragma mark addPersonProtocol
--(Person *) modifyPerson: (Person *) personv withFirstName: (NSString *) first lastName: (NSString *) last email: (NSString *) email phoneNumber: (NSString *) phone
-{
-    
-    personv.firstName = first;
-    personv.lastName = last;
-    personv.emailAddress = email;
-    personv.phoneNumber = phone;
-    
-    return personv;
-    
-    
-    
-    
-}
+
 -(void) refreshData
 {
-    [tableView reloadData];
-
+    [oTableView reloadData];
+    [showViewController refresh];
 }
 
+
+-(void) saveToCoreData
+{
+    [[AddressBookSingleton sharedInstance] saveToCoreData];
+}
+
+
+
+#pragma mark Content Filtering
+-(void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope {
+    // Update the filtered array based on the search text and scope.
+    // Remove all objects from the filtered search array
+    [filteredPeopleArray removeAllObjects];
+    // Filter the array using NSPredicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.firstName contains[c] %@",searchText];
+    filteredPeopleArray = [NSMutableArray arrayWithArray:[coreDataPeopleArray filteredArrayUsingPredicate:predicate]];
+}
+
+#pragma mark - UISearchDisplayController Delegate Methods
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+    // Tells the table data source to reload when text changes
+    [self filterContentForSearchText:searchString scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:[self.searchDisplayController.searchBar selectedScopeButtonIndex]]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
+
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption {
+    // Tells the table data source to reload when scope bar selection changes
+    [self filterContentForSearchText:self.searchDisplayController.searchBar.text scope:
+     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+    // Return YES to cause the search result table view to be reloaded.
+    return YES;
+}
 @end

@@ -11,6 +11,7 @@
 
 
 @protocol addPersonProtocol <NSObject>
--(Person *) modifyPerson: (Person *) personv withFirstName: (NSString *) first lastName: (NSString *) last email: (NSString *) email phoneNumber: (NSString *) phone;
+
 -(void) refreshData;
+-(void) saveToCoreData;
 @end
